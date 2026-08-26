@@ -123,7 +123,7 @@
 html{scroll-padding-top:96px}
 body{font-family:var(--body);background:var(--paper);color:var(--ink);line-height:1.65;overflow-x:hidden;-webkit-tap-highlight-color:transparent;overflow-wrap:break-word}
 body.mopen{overflow:hidden}
-img{max-width:100%;display:block}
+img{max-width:100%;display:block;height:auto;}
 a{color:inherit}
 h1,h2,h3,h4,.disp{font-family:var(--disp);line-height:1.05;letter-spacing:-.015em}
 .mono{font-family:var(--mono)}
@@ -194,7 +194,8 @@ body.mopen .mnav nav a{opacity:1;transform:none}
 .btn-red{background:var(--red);color:#fff}
 .btn-yellow{background:var(--yellow)}
 .btn-ghost{background:transparent}
-.btn-sm{padding:10px 16px;font-size:.88rem}
+/* Tăng padding cho mobile */
+.btn-sm{padding:12px 18px;font-size:.88rem} 
 .btn:active{transform:none;box-shadow:none}
 @media(hover:hover){
   .btn:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--ink)}
@@ -257,7 +258,7 @@ body.mopen .mnav nav a{opacity:1;transform:none}
 .hstat .num{font-family:var(--disp);font-weight:800;font-size:clamp(2rem,4.4vw,3.2rem);color:var(--yellow);line-height:1}
 .hstat .num i{font-style:normal;color:var(--red)}
 .hstat p{font-family:var(--mono);font-size:.7rem;color:#BCC9BD;letter-spacing:.14em;margin-top:8px;text-transform:uppercase}
-@media(max-width:960px){.hero-grid{grid-template-columns:1fr}.hv-vert{display:none}.hero-vis{max-width:560px}}
+@media(max-width:960px){.hero-grid{grid-template-columns:1fr}.hv-vert{display:none}.hero-vis{max-width:560px;margin: 0 auto;}}
 @media(max-width:760px){.hero-stats{grid-template-columns:1fr}.hstat{border-right:0;border-bottom:2px dashed rgba(244,237,221,.25)}.hstat:last-child{border-bottom:0}.hero .wrap{padding-top:28px}}
 
 /* ============ TICKER ============ */
@@ -308,7 +309,7 @@ section{padding:96px 0;position:relative}
 .p-body>p{font-size:.93rem;color:#3A463D}
 .p-tip{margin-top:16px;border-left:4px solid var(--yellow);background:var(--paper);border-radius:0 8px 8px 0;padding:12px 14px;font-size:.85rem;color:#4A554B}
 .p-cta{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
-@media(max-width:960px){.packs{grid-template-columns:1fr;max-width:600px;margin:0 auto}.pack:nth-child(2),.pack:nth-child(3){margin-top:0}.pack{--rot:0deg}}
+@media(max-width:1024px){.packs{grid-template-columns:1fr;max-width:600px;margin:0 auto}.pack:nth-child(2),.pack:nth-child(3){margin-top:0}.pack{--rot:0deg}}
 
 /* ============ ROAD DIVIDER ============ */
 .road{position:relative;height:22px;background:var(--ink);overflow:hidden}
@@ -1380,11 +1381,23 @@ footer{background:var(--ink9);color:#B9C6BA;padding:0 0 96px}
     q.addEventListener('click', function(){
       var item = q.parentElement;
       var wasOpen = item.classList.contains('open');
+      
+      // Đóng các tab khác
       document.querySelectorAll('.faq-item.open').forEach(function(o){
-        o.classList.remove('open');
-        o.querySelector('.faq-q').setAttribute('aria-expanded','false');
+        if (o !== item) {
+          o.classList.remove('open');
+          o.querySelector('.faq-q').setAttribute('aria-expanded','false');
+        }
       });
-      if (!wasOpen){ item.classList.add('open'); q.setAttribute('aria-expanded','true'); }
+      
+      // Toggle tab hiện tại
+      if (!wasOpen){ 
+        item.classList.add('open'); 
+        q.setAttribute('aria-expanded','true'); 
+      } else {
+        item.classList.remove('open'); 
+        q.setAttribute('aria-expanded','false'); 
+      }
     });
   });
 
@@ -1400,6 +1413,13 @@ footer{background:var(--ink9);color:#B9C6BA;padding:0 0 96px}
   burger.addEventListener('click', function(){ setMenu(!document.body.classList.contains('mopen')); });
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && document.body.classList.contains('mopen')) { setMenu(false); burger.focus(); } });
   mnav.querySelectorAll('a[href^="#"]').forEach(function(a){ a.addEventListener('click', function(){ setMenu(false); }); });
+
+  // Sửa lỗi: Tự động đóng mobile menu nếu người dùng resize màn hình sang desktop
+  window.addEventListener('resize', function(){
+    if (window.innerWidth > 1080 && document.body.classList.contains('mopen')) {
+      setMenu(false);
+    }
+  });
 
   /* smooth anchors */
   document.querySelectorAll('a[href^="#"]').forEach(function(a){
