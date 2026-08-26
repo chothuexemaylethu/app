@@ -19,7 +19,10 @@
 <meta property="og:image:alt" content="Người chạy xe máy trên phố Hà Nội">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0F1B15">
-<link rel="icon" href="https://raw.githubusercontent.com/chothuexemaylethu/app/main/IMG_1677.png">
+
+<!-- Đã sửa: Thêm apple-touch-icon và cập nhật link ảnh chính xác -->
+<link rel="icon" href="https://raw.githubusercontent.com/chothuexemaylethu/app/refs/heads/main/IMG_1677.png">
+<link rel="apple-touch-icon" href="https://raw.githubusercontent.com/chothuexemaylethu/app/refs/heads/main/IMG_1677.png">
 
 <!-- Production Dependency Optimizations -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,6 +30,9 @@
 <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
 <link rel="dns-prefetch" href="https://images.unsplash.com">
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Chivo+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- Đã sửa: Chuyển script defer lên head -->
+<script src="https://thuexemayhanoi.github.io/shop/motoai_v40_bm25plus_final.js" defer></script>
 
 <!-- 10/10 Structured Data Schema.org -->
 <script type="application/ld+json">
@@ -126,7 +132,7 @@
 
 <noscript><style>.rv,.msk-in{opacity:1!important;transform:none!important}.mnav{display:none}</style></noscript>
 <style>
-/* CSS Architecture Optimized for 10/10 Score */
+/* CSS Architecture Optimized */
 :root {
   --ink: #0F1B15; --ink2: #15251C; --ink3: #1D3227; --ink9: #0A130E;
   --paper: #F4EDDD; --paper2: #E9DFC4; --card: #FFFDF4;
@@ -143,7 +149,8 @@
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
 html { scroll-padding-top: 96px; }
 
-body { font-family: var(--body); background: var(--paper); color: var(--ink); line-height: 1.65; overflow-x: hidden; -webkit-tap-highlight-color: transparent; overflow-wrap: break-word; }
+/* Đã sửa: Dùng clip thay vì hidden để không phá vỡ position: sticky trên iOS */
+body { font-family: var(--body); background: var(--paper); color: var(--ink); line-height: 1.65; overflow-x: clip; -webkit-tap-highlight-color: transparent; overflow-wrap: break-word; }
 body.mopen { overflow: hidden; }
 
 img { max-width: 100%; display: block; height: auto; }
@@ -176,7 +183,7 @@ h1, h2, h3, h4, .disp { font-family: var(--disp); line-height: 1.05; letter-spac
 @keyframes pulse { 70% { box-shadow: 0 0 0 8px rgba(74,222,128,0); } 100% { box-shadow: 0 0 0 0 rgba(74,222,128,0); } }
 .topbar a { color: var(--yellow); text-decoration: none; }
 .topbar a:focus-visible { outline-color: var(--yellow); }
-@media(max-width:820px) { .topbar .tb-h { display: none; } }
+@media(max-width:768px) { .topbar .tb-h { display: none; } }
 
 /* Header */
 .hd { position: sticky; top: 0; z-index: 100; background: var(--paper); border-bottom: 2px solid var(--ink); transition: box-shadow .3s; }
@@ -191,7 +198,7 @@ h1, h2, h3, h4, .disp { font-family: var(--disp); line-height: 1.05; letter-spac
 .lg-txt strong { font-family: var(--disp); font-weight: 800; font-size: 1.02rem; letter-spacing: .02em; }
 .lg-txt small { font-family: var(--mono); font-size: .62rem; letter-spacing: .24em; color: var(--mut); }
 
-/* Main Nav - 16 Items Mapping Support (Scrollspy handles Active) */
+/* Main Nav - Đã sửa: Giảm số lượng mục để không bị vỡ layout */
 nav.mainnav { margin-left: auto; display: flex; gap: 2px; align-items: center; flex-wrap: wrap; max-height: 72px; overflow: hidden; }
 nav.mainnav a { position: relative; font-family: var(--mono); font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; padding: 8px 10px; color: var(--ink); }
 nav.mainnav a::after { content: ""; position: absolute; left: 10px; right: 10px; bottom: 2px; height: 3px; background: var(--red); transform: scaleX(0); transform-origin: left; transition: transform .3s; }
@@ -206,15 +213,16 @@ nav.mainnav a[aria-current="page"] { color: var(--red-d); }
 body.mopen .burger i:nth-child(1) { top: 22px; transform: rotate(45deg); }
 body.mopen .burger i:nth-child(2) { opacity: 0; }
 body.mopen .burger i:nth-child(3) { top: 22px; transform: rotate(-45deg); }
-@media(max-width:1120px) { nav.mainnav { display: none; } .burger { display: block; } .hd-call { display: none; } }
 
-/* Mobile Nav */
+/* Breakpoint chuẩn hóa 1024px cho menu */
+@media(max-width:1024px) { nav.mainnav { display: none; } .burger { display: block; } .hd-call { display: none; } }
+
+/* Mobile Nav - Giữ nguyên 16 mục */
 .mnav { position: fixed; inset: 0; z-index: 95; background: var(--ink); color: var(--paper); display: flex; flex-direction: column; padding: 96px 26px calc(24px + env(safe-area-inset-bottom)); overflow-y: auto; visibility: hidden; opacity: 0; transition: opacity .4s, visibility .4s; }
 body.mopen .mnav { visibility: visible; opacity: 1; }
 .mnav nav { display: grid; gap: 2px; }
 .mnav nav a { display: flex; align-items: baseline; gap: 14px; text-decoration: none; font-family: var(--disp); font-weight: 800; text-transform: uppercase; font-size: clamp(1.3rem, 5.5vw, 2rem); padding: 9px 2px; border-bottom: 1.5px dashed rgba(244,237,221,.22); opacity: 0; transform: translateY(18px); transition: opacity .5s, transform .5s; color: var(--paper); }
 body.mopen .mnav nav a { opacity: 1; transform: none; }
-/* Delays for 16 items */
 .mnav nav a:nth-child(1){transition-delay:0.04s} .mnav nav a:nth-child(2){transition-delay:0.06s} .mnav nav a:nth-child(3){transition-delay:0.08s} .mnav nav a:nth-child(4){transition-delay:0.10s} .mnav nav a:nth-child(5){transition-delay:0.12s} .mnav nav a:nth-child(6){transition-delay:0.14s} .mnav nav a:nth-child(7){transition-delay:0.16s} .mnav nav a:nth-child(8){transition-delay:0.18s} .mnav nav a:nth-child(9){transition-delay:0.20s} .mnav nav a:nth-child(10){transition-delay:0.22s} .mnav nav a:nth-child(11){transition-delay:0.24s} .mnav nav a:nth-child(12){transition-delay:0.26s} .mnav nav a:nth-child(13){transition-delay:0.28s} .mnav nav a:nth-child(14){transition-delay:0.30s} .mnav nav a:nth-child(15){transition-delay:0.32s} .mnav nav a:nth-child(16){transition-delay:0.34s}
 .mnav nav a i { font-family: var(--mono); font-style: normal; font-size: .72rem; letter-spacing: .2em; color: var(--yellow); }
 .mnav nav a:active, .mnav nav a[aria-current="page"] { color: var(--yellow); }
@@ -254,7 +262,8 @@ body.mopen .mnav nav a { opacity: 1; transform: none; }
 .on-dark .ghost-w { -webkit-text-stroke: 2px rgba(244,237,221,.12); }
 
 section { padding: 96px 0; position: relative; scroll-margin-top: 96px; }
-@media(max-width:760px) { section { padding: 64px 0; scroll-margin-top: 72px; } }
+/* Chuẩn hóa breakpoint mobile section */
+@media(max-width:768px) { section { padding: 64px 0; scroll-margin-top: 72px; } }
 
 /* 01. Hero */
 .hero { background: var(--ink); color: var(--paper); position: relative; overflow: hidden; }
@@ -277,10 +286,13 @@ section { padding: 96px 0; position: relative; scroll-margin-top: 96px; }
 @media(hover:hover) { .chip:hover { transform: translateY(-3px); border-color: var(--paper); color: var(--paper); } }
 .hero-vis { position: relative; aspect-ratio: 1/1.02; width: 100%; }
 .hv-ghost { position: absolute; right: -14px; top: -56px; font-family: var(--disp); font-weight: 800; font-size: clamp(7rem, 16vw, 13rem); line-height: 1; color: transparent; -webkit-text-stroke: 2.5px rgba(244,185,48,.4); z-index: 0; user-select: none; }
+
+/* Đã sửa: Sử dụng thẻ <div> thay cho <figure> khi không cần <figcaption> */
 .hv-main { position: absolute; right: 0; top: 0; width: 80%; border: 3px solid var(--paper); border-radius: 14px; overflow: hidden; transform: rotate(2deg); box-shadow: 16px 16px 0 rgba(226,58,38,.85); z-index: 1; }
 .hv-main img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 1/1.06; }
 .hv-sub { position: absolute; left: 0; bottom: 34px; width: 50%; border: 3px solid var(--ink); border-radius: 12px; overflow: hidden; transform: rotate(-5deg); box-shadow: 10px 10px 0 rgba(244,185,48,.9); background: var(--paper); z-index: 2; }
 .hv-sub img { aspect-ratio: 1/1; object-fit: cover; width: 100%; }
+
 .hv-tag { position: absolute; right: 4%; bottom: -4px; background: var(--card); color: var(--ink); border: 2px solid var(--ink); border-radius: 8px; padding: 9px 15px; font-family: var(--mono); font-size: .72rem; font-weight: 700; letter-spacing: .12em; transform: rotate(3deg); box-shadow: 4px 4px 0 var(--ink); z-index: 3; animation: floaty 5.5s ease-in-out infinite; }
 @keyframes floaty { 50% { transform: rotate(3deg) translateY(-9px); } }
 .hv-vert { position: absolute; left: -46px; top: 8%; writing-mode: vertical-rl; font-family: var(--mono); font-size: .66rem; letter-spacing: .34em; color: rgba(244,237,221,.4); text-transform: uppercase; }
@@ -292,13 +304,14 @@ section { padding: 96px 0; position: relative; scroll-margin-top: 96px; }
 .hstat { padding: 22px 28px; border-right: 2px dashed rgba(244,237,221,.25); }
 .hstat:last-child { border-right: 0; }
 .hstat .num { font-family: var(--disp); font-weight: 800; font-size: clamp(2rem, 4.4vw, 3.2rem); color: var(--yellow); line-height: 1; }
-.hstat .num i { font-style: normal; color: var(--red); }
+/* Đã sửa thẻ i thành span aria-hidden */
+.hstat .num span[aria-hidden] { font-style: normal; color: var(--red); }
 .hstat p { font-family: var(--mono); font-size: .7rem; color: #BCC9BD; letter-spacing: .14em; margin-top: 8px; text-transform: uppercase; }
 
 @media(max-width:1024px) { .hero-grid { grid-template-columns: 1fr; } .hv-vert { display: none; } .hero-vis { max-width: 560px; margin: 0 auto; } }
-@media(max-width:760px) { .hero-stats { grid-template-columns: 1fr; } .hstat { border-right: 0; border-bottom: 2px dashed rgba(244,237,221,.25); } .hstat:last-child { border-bottom: 0; } .hero .wrap { padding-top: 28px; } }
+@media(max-width:768px) { .hero-stats { grid-template-columns: 1fr; } .hstat { border-right: 0; border-bottom: 2px dashed rgba(244,237,221,.25); } .hstat:last-child { border-bottom: 0; } .hero .wrap { padding-top: 28px; } }
 
-/* Ticker */
+/* Ticker - Đã sửa lỗi thiếu chiều rộng bằng cách thêm nhiều item */
 .ticker { background: var(--yellow); border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); overflow: hidden; display: flex; }
 .tk-track { display: flex; width: max-content; }
 @media (prefers-reduced-motion:no-preference) {
@@ -307,11 +320,13 @@ section { padding: 96px 0; position: relative; scroll-margin-top: 96px; }
 }
 @keyframes tk { to { transform: translateX(-50%); } }
 .tk-track span { font-family: var(--disp); font-weight: 800; text-transform: uppercase; letter-spacing: .06em; padding: 13px 0; font-size: 1rem; white-space: nowrap; color: var(--ink); }
-.tk-track span i { font-style: normal; color: var(--red); padding: 0 18px; }
+/* Đã sửa thẻ i thành span */
+.tk-track span span[aria-hidden] { font-style: normal; color: var(--red); padding: 0 18px; }
 
 /* 02. About */
 .about-grid { display: grid; grid-template-columns: .92fr 1.08fr; gap: 60px; align-items: start; }
 .about-vis { position: relative; }
+/* Đã sửa: Thẻ div thay vì figure */
 .about-vis .frame { border: 3px solid var(--ink); border-radius: 14px; overflow: hidden; box-shadow: 14px 14px 0 var(--red); }
 .about-vis .frame img { aspect-ratio: 4/3.4; object-fit: cover; width: 100%; }
 .about-vis .sticker { position: absolute; top: -16px; right: 22px; background: var(--yellow); border: 2px solid var(--ink); border-radius: 8px; padding: 8px 14px; font-family: var(--mono); font-weight: 700; font-size: .72rem; letter-spacing: .14em; transform: rotate(3deg); box-shadow: 4px 4px 0 var(--ink); z-index: 2;}
@@ -325,7 +340,7 @@ section { padding: 96px 0; position: relative; scroll-margin-top: 96px; }
 .fact b { font-family: var(--mono); font-size: .66rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ink); font-weight: 800; }
 .fact span { font-weight: 600; color: #2A362D;}
 .fact a { color: var(--red-d); text-decoration: none; font-weight: 700; }
-@media(max-width:960px) { .about-grid { grid-template-columns: 1fr; } .fact { grid-template-columns: 110px 1fr; } }
+@media(max-width:768px) { .about-grid { grid-template-columns: 1fr; } .fact { grid-template-columns: 110px 1fr; } }
 
 /* 03. Packs */
 #nhu-cau { background: var(--paper2); }
@@ -362,6 +377,7 @@ section { padding: 96px 0; position: relative; scroll-margin-top: 96px; }
 .fleet { display: grid; grid-template-columns: 110px .9fr 1.1fr; gap: 36px; align-items: center; padding: 40px 0; border-bottom: 2px solid var(--ink); }
 .f-no { font-family: var(--disp); font-weight: 800; font-size: clamp(3rem, 6vw, 5rem); line-height: 1; color: transparent; -webkit-text-stroke: 2.5px var(--ink); transition: color .3s; }
 @media(hover:hover) { .fleet:hover .f-no { color: var(--red); -webkit-text-stroke-color: var(--red); } }
+/* Đã sửa: Thẻ div thay vì figure */
 .f-img { overflow: hidden; border: 3px solid var(--ink); border-radius: 12px; box-shadow: 8px 8px 0 var(--yellow); }
 .f-img img { aspect-ratio: 4/3; object-fit: cover; width: 100%; transition: transform .9s cubic-bezier(.2,.7,.2,1); }
 @media(hover:hover) { .fleet:hover .f-img img { transform: scale(1.07); } }
@@ -375,7 +391,7 @@ section { padding: 96px 0; position: relative; scroll-margin-top: 96px; }
 .f-link { font-weight: 700; color: var(--red-d); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-size: .95rem; }
 .f-link span { transition: transform .25s; }
 @media(hover:hover) { .f-link:hover span { transform: translateX(6px); } }
-@media(max-width:900px) { .fleet { grid-template-columns: 1fr; gap: 20px; padding: 32px 0; } .f-no { font-size: 2.6rem; } .fleet:nth-child(even) .f-img { order: 0; } }
+@media(max-width:768px) { .fleet { grid-template-columns: 1fr; gap: 20px; padding: 32px 0; } .f-no { font-size: 2.6rem; } .fleet:nth-child(even) .f-img { order: 0; } }
 
 .advice { margin-top: 64px; background: var(--green); color: var(--paper); border: 2px solid var(--ink); border-radius: 16px; box-shadow: 12px 12px 0 var(--yellow); padding: 44px; display: grid; grid-template-columns: 1.05fr .95fr; gap: 44px; align-items: center; }
 .advice h3 { font-size: clamp(1.4rem, 3vw, 2rem); text-transform: uppercase; margin-bottom: 14px; color: var(--paper); }
@@ -384,7 +400,7 @@ section { padding: 96px 0; position: relative; scroll-margin-top: 96px; }
 .advice ol li::before { content: counter(ad, decimal-leading-zero); font-family: var(--mono); font-weight: 700; background: var(--yellow); color: var(--ink); border: 2px solid var(--ink); border-radius: 6px; padding: 2px 8px; flex: none; }
 .advice .cta-col { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
 .advice p.note { font-size: .9rem; color: #CFE4D6; }
-@media(max-width:900px) { .advice { grid-template-columns: 1fr; padding: 30px; } }
+@media(max-width:768px) { .advice { grid-template-columns: 1fr; padding: 30px; } }
 
 /* 05. Pricing */
 #bang-gia { background: var(--ink); color: var(--paper); }
@@ -407,7 +423,7 @@ section { padding: 96px 0; position: relative; scroll-margin-top: 96px; }
 .price-cta { margin-top: 52px; background: var(--red); border: 2px solid var(--ink); border-radius: 16px; box-shadow: 12px 12px 0 var(--yellow); padding: 36px 40px; display: flex; gap: 26px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
 .price-cta h3 { font-size: clamp(1.2rem, 2.6vw, 1.7rem); text-transform: uppercase; color: #fff; }
 .price-cta p { color: #FFE1DB; font-size: .92rem; }
-@media(max-width:860px) { .prow { grid-template-columns: 1fr; } .prow.head { display: none; } .prow p::before { content: attr(data-l) ": "; display: block; font-family: var(--mono); font-size: .66rem; letter-spacing: .18em; text-transform: uppercase; color: #B9C6BA; margin-bottom: 4px; } .price-grid { grid-template-columns: 1fr; } }
+@media(max-width:768px) { .prow { grid-template-columns: 1fr; } .prow.head { display: none; } .prow p::before { content: attr(data-l) ": "; display: block; font-family: var(--mono); font-size: .66rem; letter-spacing: .18em; text-transform: uppercase; color: #B9C6BA; margin-bottom: 4px; } .price-grid { grid-template-columns: 1fr; } }
 
 /* 06. Process */
 .proc { display: grid; grid-template-columns: .9fr 1.1fr; gap: 64px; align-items: start; }
@@ -423,7 +439,7 @@ section { padding: 96px 0; position: relative; scroll-margin-top: 96px; }
 .step div { min-width: 0; }
 .step h3 { font-size: 1.15rem; text-transform: uppercase; margin-bottom: 8px; color: var(--ink); }
 .step p { font-size: .93rem; color: #3A463D; max-width: 56ch; }
-@media(max-width:900px) { .proc { grid-template-columns: 1fr; } .proc-left { position: static; } }
+@media(max-width:768px) { .proc { grid-template-columns: 1fr; } .proc-left { position: static; } }
 
 /* 07. Promo */
 #uu-dai { background: var(--green); color: var(--paper); overflow: hidden; }
@@ -446,7 +462,7 @@ section { padding: 96px 0; position: relative; scroll-margin-top: 96px; }
 .u-note { margin-top: 34px; font-size: .88rem; color: #CFE4D6; border: 1.5px dashed rgba(244,237,221,.4); border-radius: 10px; padding: 16px 18px; display: flex; gap: 12px; align-items: flex-start; }
 .u-note svg { width: 20px; height: 20px; flex: none; color: var(--yellow); margin-top: 2px; }
 .u-note span b { color: var(--yellow); }
-@media(max-width:900px) { .coupon-grid { grid-template-columns: 1fr; } }
+@media(max-width:768px) { .coupon-grid { grid-template-columns: 1fr; } }
 
 /* 08. Stamps */
 .stamp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
@@ -456,8 +472,8 @@ section { padding: 96px 0; position: relative; scroll-margin-top: 96px; }
 .stamp .badge b { color: var(--red); }
 .stamp h3 { font-size: 1.12rem; text-transform: uppercase; color: var(--ink); }
 .stamp p { font-size: .9rem; color: #3A463D; }
-@media(max-width:960px) { .stamp-grid { grid-template-columns: 1fr 1fr; } }
-@media(max-width:620px) { .stamp-grid { grid-template-columns: 1fr; } }
+@media(max-width:768px) { .stamp-grid { grid-template-columns: 1fr 1fr; } }
+@media(max-width:480px) { .stamp-grid { grid-template-columns: 1fr; } }
 
 /* 09. Tips */
 #cam-nang { background: var(--paper2); }
@@ -471,8 +487,8 @@ section { padding: 96px 0; position: relative; scroll-margin-top: 96px; }
 .tipc p { font-size: .9rem; color: #3A463D; }
 .tip-cta { margin-top: 46px; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
 .tip-cta p { font-weight: 600; color: var(--ink); }
-@media(max-width:960px) { .tip-grid { grid-template-columns: 1fr 1fr; } }
-@media(max-width:620px) { .tip-grid { grid-template-columns: 1fr; } }
+@media(max-width:768px) { .tip-grid { grid-template-columns: 1fr 1fr; } }
+@media(max-width:480px) { .tip-grid { grid-template-columns: 1fr; } }
 
 /* 10. Reviews */
 .review-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
@@ -482,7 +498,7 @@ section { padding: 96px 0; position: relative; scroll-margin-top: 96px; }
 .review-card p { font-size: 0.95rem; color: #3A463D; font-style: italic; margin-bottom: 20px; line-height: 1.6; }
 .reviewer { font-size: 0.85rem; color: #5E6A5F; }
 .reviewer b { color: var(--ink); display: block; font-size: 0.95rem; font-family: var(--disp); text-transform: uppercase; }
-@media (max-width: 900px) { .review-grid { grid-template-columns: 1fr; } }
+@media (max-width: 768px) { .review-grid { grid-template-columns: 1fr; } }
 
 /* 11. Feedback */
 .fb-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 52px; align-items: start; }
@@ -502,12 +518,13 @@ section { padding: 96px 0; position: relative; scroll-margin-top: 96px; }
 .fb-guide ol li { counter-increment: fb; display: flex; gap: 13px; font-size: .93rem; align-items: flex-start; color: #E4F0E9; }
 .fb-guide ol li::before { content: counter(fb, decimal-leading-zero); font-family: var(--mono); font-weight: 700; color: var(--ink); background: var(--yellow); border: 2px solid var(--ink); border-radius: 6px; padding: 2px 8px; flex: none; font-size: .78rem; }
 .fb-note { margin-top: 22px; font-size: .84rem; color: #B9C6BA; border-top: 1.5px dashed rgba(244,237,221,.3); padding-top: 14px; }
-@media(max-width:900px) { .fb-grid { grid-template-columns: 1fr; } }
+@media(max-width:768px) { .fb-grid { grid-template-columns: 1fr; } }
 
 /* 12. Area */
 #khu-vuc { background: var(--paper2); }
 .area-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 52px; align-items: start; }
 .area-vis { position: relative; }
+/* Đã sửa thẻ div thay vì figure */
 .area-vis .main { border: 3px solid var(--ink); border-radius: 14px; overflow: hidden; box-shadow: 14px 14px 0 var(--green); }
 .area-vis .main img { aspect-ratio: 1/1; object-fit: cover; width: 100%; }
 .area-vis .sticker { position: absolute; top: -18px; left: 24px; background: var(--yellow); border: 2px solid var(--ink); border-radius: 8px; padding: 8px 14px; font-family: var(--mono); font-weight: 700; font-size: .74rem; letter-spacing: .12em; transform: rotate(-3deg); box-shadow: 4px 4px 0 var(--red); color: var(--ink); }
@@ -523,7 +540,7 @@ section { padding: 96px 0; position: relative; scroll-margin-top: 96px; }
 @media(hover:hover) { .area-chips span:hover { background: var(--yellow); transform: translateY(-3px); } }
 .map-box { margin-top: 52px; border: 3px solid var(--ink); border-radius: 14px; overflow: hidden; box-shadow: 10px 10px 0 rgba(15,27,21,.16); }
 .map-box iframe { width: 100%; height: 400px; border: 0; display: block; filter: saturate(.9) contrast(1.02); }
-@media(max-width:900px) { .area-grid { grid-template-columns: 1fr; } }
+@media(max-width:768px) { .area-grid { grid-template-columns: 1fr; } }
 
 /* 13. FAQ */
 .faq-list { display: grid; gap: 16px; max-width: 880px; }
@@ -553,7 +570,7 @@ section { padding: 96px 0; position: relative; scroll-margin-top: 96px; }
 @media(hover:hover) { .cta-final .tel:hover { letter-spacing: .04em; } }
 .cta-final p { font-size: .9rem; color: #3A463D; margin-bottom: 24px; }
 .cta-final .row { display: flex; gap: 12px; flex-wrap: wrap; }
-@media(max-width:900px) { .why-grid { grid-template-columns: 1fr; } }
+@media(max-width:768px) { .why-grid { grid-template-columns: 1fr; } }
 
 /* 15. Terms */
 #dieu-khoan { background: var(--paper2); }
@@ -567,7 +584,7 @@ section { padding: 96px 0; position: relative; scroll-margin-top: 96px; }
 .doc-stamp { position: absolute; top: -34px; right: 6px; width: 122px; height: 122px; border: 3px double var(--red); border-radius: 50%; display: grid; place-items: center; color: var(--red); font-family: var(--disp); font-weight: 800; font-size: .8rem; text-transform: uppercase; text-align: center; line-height: 1.25; transform: rotate(12deg); background: rgba(244,237,221,.88); z-index: 3; pointer-events: none; }
 .doc-note { margin-top: 34px; display: flex; gap: 12px; align-items: flex-start; border: 2px dashed var(--ink); border-radius: 12px; background: var(--card); padding: 18px 22px; font-size: .9rem; color: #3A463D; }
 .doc-note svg { width: 21px; height: 21px; flex: none; color: var(--red); margin-top: 2px; }
-@media(max-width:860px) { .doc-grid { grid-template-columns: 1fr; } .doc-stamp { position: static; transform: rotate(-4deg); margin: 0 0 24px; width: 104px; height: 104px; } }
+@media(max-width:768px) { .doc-grid { grid-template-columns: 1fr; } .doc-stamp { position: static; transform: rotate(-4deg); margin: 0 0 24px; width: 104px; height: 104px; } }
 
 /* 16. Privacy */
 #bao-mat { background: var(--ink); color: var(--paper); overflow: hidden; }
@@ -584,7 +601,7 @@ section { padding: 96px 0; position: relative; scroll-margin-top: 96px; }
 .priv-contact { margin-top: 40px; background: var(--green); border: 2px solid var(--ink); border-radius: 14px; box-shadow: 9px 9px 0 var(--yellow); padding: 28px 32px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
 .priv-contact p { font-size: .94rem; color: #E4F0E9; }
 .priv-contact b { color: #fff; }
-@media(max-width:860px) { .priv-grid { grid-template-columns: 1fr; } }
+@media(max-width:768px) { .priv-grid { grid-template-columns: 1fr; } }
 
 /* Footer */
 footer { background: var(--ink9); color: #B9C6BA; padding: 0 0 96px; }
@@ -592,7 +609,8 @@ footer { background: var(--ink9); color: #B9C6BA; padding: 0 0 96px; }
 .fm-track { display: flex; width: max-content; }
 @media (prefers-reduced-motion:no-preference) { .fm-track { animation: tk 40s linear infinite; } }
 .fm-track span { font-family: var(--disp); font-weight: 800; text-transform: uppercase; font-size: clamp(2.6rem, 7vw, 5.2rem); line-height: 1; white-space: nowrap; color: transparent; -webkit-text-stroke: 2px rgba(244,237,221,.3); padding-right: .6em; }
-.fm-track span i { font-style: normal; color: var(--red); -webkit-text-stroke: 0; }
+/* Đã sửa thẻ i thành span */
+.fm-track span span[aria-hidden] { font-style: normal; color: var(--red); -webkit-text-stroke: 0; }
 .ft-grid { display: grid; grid-template-columns: 1.5fr .8fr .8fr .8fr; gap: 44px; padding-top: 64px; }
 .ft-grid h4 { font-family: var(--disp); color: var(--paper); text-transform: uppercase; font-size: .92rem; letter-spacing: .12em; margin-bottom: 16px; }
 .ft-grid p, .ft-links a { font-size: .88rem; text-decoration: none; line-height: 2.1; }
@@ -606,8 +624,8 @@ footer { background: var(--ink9); color: #B9C6BA; padding: 0 0 96px; }
 @media(hover:hover) { .ft-social a:hover { background: var(--yellow); color: var(--ink); border-color: var(--yellow); } }
 .ft-bot { margin-top: 52px; border-top: 1.5px dashed rgba(185,198,186,.3); padding-top: 24px; display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; font-size: .8rem; }
 .ft-bot a { color: var(--yellow); text-decoration: none; }
-@media(max-width:960px) { .ft-grid { grid-template-columns: 1fr 1fr; } }
-@media(max-width:560px) { .ft-grid { grid-template-columns: 1fr; } }
+@media(max-width:768px) { .ft-grid { grid-template-columns: 1fr 1fr; } }
+@media(max-width:480px) { .ft-grid { grid-template-columns: 1fr; } }
 
 /* Mobile Bar Optimized */
 .mbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 91; display: none; grid-template-columns: 1fr 1fr; border-top: 2px solid var(--ink); box-shadow: 0 -4px 18px rgba(0,0,0,0.15); background: rgba(244, 237, 221, 0.95); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); padding-bottom: env(safe-area-inset-bottom); }
@@ -615,7 +633,7 @@ footer { background: var(--ink9); color: #B9C6BA; padding: 0 0 96px; }
 .mbar .call { background: var(--red); color: #fff; }
 .mbar .zalo { background: var(--yellow); color: var(--ink); }
 .mbar svg { width: 19px; height: 19px; }
-@media(max-width:760px) { .mbar { display: grid; } footer { padding-bottom: calc(110px + env(safe-area-inset-bottom)); } }
+@media(max-width:768px) { .mbar { display: grid; } footer { padding-bottom: calc(110px + env(safe-area-inset-bottom)); } }
 
 @media (prefers-reduced-motion:reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -645,24 +663,19 @@ footer { background: var(--ink9); color: #B9C6BA; padding: 0 0 96px; }
       <span class="lg-plate" aria-hidden="true">LÊ THU</span>
       <span class="lg-txt"><strong>THUÊ XE MÁY</strong><small>PHỐ HUẾ · HÀ NỘI</small></span>
     </a>
-    <nav class="mainnav" aria-label="Điều hướng chính (16 mục)">
+    
+    <!-- Đã sửa: Giảm số lượng item để không tràn khung, đẩy phần dư xuống menu footer/mobile -->
+    <nav class="mainnav" aria-label="Điều hướng chính">
       <a href="#trang-chu">Trang chủ</a>
       <a href="#gioi-thieu">Giới thiệu</a>
       <a href="#nhu-cau">Gói thuê</a>
       <a href="#loai-xe">Loại xe</a>
       <a href="#bang-gia">Bảng giá</a>
       <a href="#quy-trinh">Quy trình</a>
-      <a href="#uu-dai">Ưu đãi</a>
-      <a href="#cam-ket">Cam kết</a>
-      <a href="#cam-nang">Cẩm nang</a>
       <a href="#danh-gia">Đánh giá</a>
-      <a href="#phan-hoi">Góp ý</a>
-      <a href="#khu-vuc">Khu vực</a>
-      <a href="#faq">Câu hỏi</a>
       <a href="#lien-he">Liên hệ</a>
-      <a href="#dieu-khoan">Quy định</a>
-      <a href="#bao-mat">Bảo mật</a>
     </nav>
+
     <a class="btn btn-red btn-sm hd-call" href="tel:+84354904601" aria-label="Gọi số hotline 0354 904 601">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></svg>
       0354 904 601
@@ -702,7 +715,8 @@ footer { background: var(--ink9); color: #B9C6BA; padding: 0 0 96px; }
 
 <main id="main">
 <!-- ============ 01 HERO ============ -->
-<section id="trang-chu" class="hero on-dark" aria-labelledby="title-trang-chu" style="padding:0">
+<!-- Đã sửa: Thêm tabindex="-1" vào tất cả thẻ section -->
+<section id="trang-chu" tabindex="-1" class="hero on-dark" aria-labelledby="title-trang-chu" style="padding:0">
   <div class="wrap">
     <p class="crumb" aria-label="Toạ độ cửa hàng"><span class="scr" data-text="21.0189°N · 105.8528°E — PHỐ HUẾ · HAI BÀ TRƯNG · HÀ NỘI">21.0189°N · 105.8528°E — PHỐ HUẾ · HAI BÀ TRƯNG · HÀ NỘI</span></p>
     <div class="hero-grid">
@@ -731,29 +745,33 @@ footer { background: var(--ink9); color: #B9C6BA; padding: 0 0 96px; }
       <div class="hero-vis" aria-hidden="true">
         <span class="hv-ghost">29</span>
         <span class="hv-vert">THUÊ XE MÁY — NGÀY · TUẦN · THÁNG</span>
-        <figure class="hv-main kb"><img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&q=80&w=1024" alt="Hình ảnh người đi xe máy tại Hà Nội" width="1024" height="1024" fetchpriority="high"></figure>
-        <figure class="hv-sub"><img src="https://images.unsplash.com/photo-1449426468159-d96dbf08f19f?auto=format&fit=crop&q=80&w=1024" alt="Dãy xe máy cho thuê" width="1024" height="1024" loading="lazy" decoding="async"></figure>
+        <!-- Đã sửa thẻ figure -> div -->
+        <div class="hv-main kb"><img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&q=80&w=1024" alt="Hình ảnh người đi xe máy tại Hà Nội" width="1024" height="1024" fetchpriority="high"></div>
+        <div class="hv-sub"><img src="https://images.unsplash.com/photo-1449426468159-d96dbf08f19f?auto=format&fit=crop&q=80&w=1024" alt="Dãy xe máy cho thuê" width="1024" height="1024" loading="lazy" decoding="async"></div>
         <span class="hv-tag">GỌI LÀ CÓ XE ★ 0354 904 601</span>
       </div>
     </div>
     <div class="hero-stats rv" style="--rd:.2s" aria-label="Thống kê dịch vụ">
-      <div class="hstat"><div class="num"><span data-count="4">4</span><i aria-hidden="true">+</i></div><p>Nhóm xe: số · ga · điện · 50cc</p></div>
-      <div class="hstat"><div class="num"><span data-count="3">3</span><i aria-hidden="true"> gói</i></div><p>Thuê theo ngày · tuần · tháng</p></div>
-      <div class="hstat"><div class="num"><span data-count="12">12</span><i aria-hidden="true">h</i></div><p>Mở cửa mỗi ngày · 9:00 – 21:00</p></div>
+      <div class="hstat"><div class="num"><span data-count="4">4</span><span aria-hidden="true">+</span></div><p>Nhóm xe: số · ga · điện · 50cc</p></div>
+      <div class="hstat"><div class="num"><span data-count="3">3</span><span aria-hidden="true"> gói</span></div><p>Thuê theo ngày · tuần · tháng</p></div>
+      <div class="hstat"><div class="num"><span data-count="12">12</span><span aria-hidden="true">h</span></div><p>Mở cửa mỗi ngày · 9:00 – 21:00</p></div>
     </div>
   </div>
 </section>
 
 <!-- ticker -->
+<!-- Đã sửa: Nhân bản các thẻ span để chống trắng ở màn hình cực rộng và sửa thẻ <i> -->
 <div class="ticker" aria-hidden="true">
   <div class="tk-track">
-    <span>Thuê xe máy Hà Nội<i>★</i>Xe số<i>★</i>Xe ga<i>★</i>Xe điện<i>★</i>Xe 50cc<i>★</i>Theo ngày – tuần – tháng<i>★</i>Giao xe nội thành<i>★</i>0354 904 601<i>★</i></span>
-    <span>Thuê xe máy Hà Nội<i>★</i>Xe số<i>★</i>Xe ga<i>★</i>Xe điện<i>★</i>Xe 50cc<i>★</i>Theo ngày – tuần – tháng<i>★</i>Giao xe nội thành<i>★</i>0354 904 601<i>★</i></span>
+    <span>Thuê xe máy Hà Nội<span aria-hidden="true">★</span>Xe số<span aria-hidden="true">★</span>Xe ga<span aria-hidden="true">★</span>Xe điện<span aria-hidden="true">★</span>Xe 50cc<span aria-hidden="true">★</span>Theo ngày – tuần – tháng<span aria-hidden="true">★</span>Giao xe nội thành<span aria-hidden="true">★</span>0354 904 601<span aria-hidden="true">★</span></span>
+    <span>Thuê xe máy Hà Nội<span aria-hidden="true">★</span>Xe số<span aria-hidden="true">★</span>Xe ga<span aria-hidden="true">★</span>Xe điện<span aria-hidden="true">★</span>Xe 50cc<span aria-hidden="true">★</span>Theo ngày – tuần – tháng<span aria-hidden="true">★</span>Giao xe nội thành<span aria-hidden="true">★</span>0354 904 601<span aria-hidden="true">★</span></span>
+    <span>Thuê xe máy Hà Nội<span aria-hidden="true">★</span>Xe số<span aria-hidden="true">★</span>Xe ga<span aria-hidden="true">★</span>Xe điện<span aria-hidden="true">★</span>Xe 50cc<span aria-hidden="true">★</span>Theo ngày – tuần – tháng<span aria-hidden="true">★</span>Giao xe nội thành<span aria-hidden="true">★</span>0354 904 601<span aria-hidden="true">★</span></span>
+    <span>Thuê xe máy Hà Nội<span aria-hidden="true">★</span>Xe số<span aria-hidden="true">★</span>Xe ga<span aria-hidden="true">★</span>Xe điện<span aria-hidden="true">★</span>Xe 50cc<span aria-hidden="true">★</span>Theo ngày – tuần – tháng<span aria-hidden="true">★</span>Giao xe nội thành<span aria-hidden="true">★</span>0354 904 601<span aria-hidden="true">★</span></span>
   </div>
 </div>
 
 <!-- ============ 02 ABOUT ============ -->
-<section id="gioi-thieu" aria-labelledby="title-gioi-thieu">
+<section id="gioi-thieu" tabindex="-1" aria-labelledby="title-gioi-thieu">
   <div class="wrap">
     <header class="shead">
       <span class="ghost-w" aria-hidden="true">LT</span>
@@ -785,7 +803,7 @@ footer { background: var(--ink9); color: #B9C6BA; padding: 0 0 96px; }
 </section>
 
 <!-- ============ 03 PACKS ============ -->
-<section id="nhu-cau" aria-labelledby="title-nhu-cau">
+<section id="nhu-cau" tabindex="-1" aria-labelledby="title-nhu-cau">
   <div class="wrap">
     <header class="shead">
       <p class="sidx rv">(03) — Gói thuê linh hoạt</p>
@@ -837,7 +855,7 @@ footer { background: var(--ink9); color: #B9C6BA; padding: 0 0 96px; }
 </section>
 
 <!-- ============ 04 FLEET ============ -->
-<section id="loai-xe" aria-labelledby="title-loai-xe">
+<section id="loai-xe" tabindex="-1" aria-labelledby="title-loai-xe">
   <div class="wrap">
     <header class="shead">
       <span class="ghost-w" aria-hidden="true">04</span>
@@ -848,7 +866,8 @@ footer { background: var(--ink9); color: #B9C6BA; padding: 0 0 96px; }
     <div class="fleet-list">
       <article class="fleet rv">
         <span class="f-no" aria-hidden="true">01</span>
-        <figure class="f-img"><img src="https://images.unsplash.com/photo-1508355990115-52f14bbd8b50?auto=format&fit=crop&q=80&w=1024" alt="Xe máy số phổ thông tiết kiệm nhiên liệu" width="1024" height="1024" loading="lazy" decoding="async"></figure>
+        <!-- Đã sửa thẻ figure -> div -->
+        <div class="f-img"><img src="https://images.unsplash.com/photo-1508355990115-52f14bbd8b50?auto=format&fit=crop&q=80&w=1024" alt="Xe máy số phổ thông tiết kiệm nhiên liệu" width="1024" height="1024" loading="lazy" decoding="async"></div>
         <div class="f-body">
           <span class="f-tag">TIẾT KIỆM</span>
           <h3>Xe số</h3>
@@ -859,7 +878,7 @@ footer { background: var(--ink9); color: #B9C6BA; padding: 0 0 96px; }
       </article>
       <article class="fleet rv">
         <span class="f-no" aria-hidden="true">02</span>
-        <figure class="f-img"><img src="https://images.unsplash.com/photo-1469037803623-fb94e1d1ebc9?auto=format&fit=crop&q=80&w=1024" alt="Xe tay ga dễ điều khiển trong đô thị" width="1024" height="1024" loading="lazy" decoding="async"></figure>
+        <div class="f-img"><img src="https://images.unsplash.com/photo-1469037803623-fb94e1d1ebc9?auto=format&fit=crop&q=80&w=1024" alt="Xe tay ga dễ điều khiển trong đô thị" width="1024" height="1024" loading="lazy" decoding="async"></div>
         <div class="f-body">
           <span class="f-tag">PHỔ BIẾN</span>
           <h3>Xe ga</h3>
@@ -870,7 +889,7 @@ footer { background: var(--ink9); color: #B9C6BA; padding: 0 0 96px; }
       </article>
       <article class="fleet rv">
         <span class="f-no" aria-hidden="true">03</span>
-        <figure class="f-img"><img src="https://images.unsplash.com/photo-1505322747495-6afdd3b70760?auto=format&fit=crop&q=80&w=1024" alt="Xe máy điện thân thiện môi trường" width="1024" height="1024" loading="lazy" decoding="async"></figure>
+        <div class="f-img"><img src="https://images.unsplash.com/photo-1505322747495-6afdd3b70760?auto=format&fit=crop&q=80&w=1024" alt="Xe máy điện thân thiện môi trường" width="1024" height="1024" loading="lazy" decoding="async"></div>
         <div class="f-body">
           <span class="f-tag">XANH</span>
           <h3>Xe điện</h3>
@@ -881,7 +900,7 @@ footer { background: var(--ink9); color: #B9C6BA; padding: 0 0 96px; }
       </article>
       <article class="fleet rv">
         <span class="f-no" aria-hidden="true">04</span>
-        <figure class="f-img"><img src="https://images.unsplash.com/photo-1563814890250-93bf045050f2?auto=format&fit=crop&q=80&w=1024" alt="Xe máy 50cc nhỏ gọn cho sinh viên học sinh" width="1024" height="1024" loading="lazy" decoding="async"></figure>
+        <div class="f-img"><img src="https://images.unsplash.com/photo-1563814890250-93bf045050f2?auto=format&fit=crop&q=80&w=1024" alt="Xe máy 50cc nhỏ gọn cho sinh viên học sinh" width="1024" height="1024" loading="lazy" decoding="async"></div>
         <div class="f-body">
           <span class="f-tag">NHẸ NHÀNG</span>
           <h3>Xe 50cc</h3>
@@ -916,7 +935,7 @@ footer { background: var(--ink9); color: #B9C6BA; padding: 0 0 96px; }
 </section>
 
 <!-- ============ 05 PRICING ============ -->
-<section id="bang-gia" class="on-dark" aria-labelledby="title-bang-gia">
+<section id="bang-gia" tabindex="-1" class="on-dark" aria-labelledby="title-bang-gia">
   <div class="wrap">
     <header class="shead">
       <p class="sidx rv">(05) — Rõ ràng trước khi thuê</p>
@@ -960,7 +979,7 @@ footer { background: var(--ink9); color: #B9C6BA; padding: 0 0 96px; }
 </div>
 
 <!-- ============ 06 PROCESS ============ -->
-<section id="quy-trinh" aria-labelledby="title-quy-trinh">
+<section id="quy-trinh" tabindex="-1" aria-labelledby="title-quy-trinh">
   <div class="wrap proc">
     <div class="proc-left">
       <p class="sidx rv">(06) — 5 bước là lăn bánh</p>
@@ -986,7 +1005,7 @@ footer { background: var(--ink9); color: #B9C6BA; padding: 0 0 96px; }
 </section>
 
 <!-- ============ 07 COUPONS ============ -->
-<section id="uu-dai" class="on-dark" aria-labelledby="title-uu-dai">
+<section id="uu-dai" tabindex="-1" class="on-dark" aria-labelledby="title-uu-dai">
   <div class="wrap">
     <header class="shead">
       <p class="sidx rv">(07) — Vé ưu đãi</p>
@@ -1035,7 +1054,7 @@ footer { background: var(--ink9); color: #B9C6BA; padding: 0 0 96px; }
 </section>
 
 <!-- ============ 08 STAMPS ============ -->
-<section id="cam-ket" aria-labelledby="title-cam-ket">
+<section id="cam-ket" tabindex="-1" aria-labelledby="title-cam-ket">
   <div class="wrap">
     <header class="shead">
       <p class="sidx rv">(08) — Lời hứa của cửa hàng</p>
@@ -1054,7 +1073,7 @@ footer { background: var(--ink9); color: #B9C6BA; padding: 0 0 96px; }
 </section>
 
 <!-- ============ 09 TIPS ============ -->
-<section id="cam-nang" style="border-top: 2px solid var(--ink)" aria-labelledby="title-cam-nang">
+<section id="cam-nang" tabindex="-1" style="border-top: 2px solid var(--ink)" aria-labelledby="title-cam-nang">
   <div class="wrap">
     <header class="shead">
       <p class="sidx rv">(09) — Mẹo chạy xe phố cổ</p>
@@ -1073,7 +1092,7 @@ footer { background: var(--ink9); color: #B9C6BA; padding: 0 0 96px; }
 </section>
 
 <!-- ============ 10 REVIEWS ============ -->
-<section id="danh-gia" aria-labelledby="title-danh-gia">
+<section id="danh-gia" tabindex="-1" aria-labelledby="title-danh-gia">
   <div class="wrap">
     <header class="shead">
       <p class="sidx rv">(10) — Khách hàng nói gì?</p>
@@ -1101,7 +1120,7 @@ footer { background: var(--ink9); color: #B9C6BA; padding: 0 0 96px; }
 </section>
 
 <!-- ============ 11 FEEDBACK ============ -->
-<section id="phan-hoi" style="border-top: 2px solid var(--ink)" aria-labelledby="title-phan-hoi">
+<section id="phan-hoi" tabindex="-1" style="border-top: 2px solid var(--ink)" aria-labelledby="title-phan-hoi">
   <div class="wrap">
     <header class="shead">
       <p class="sidx rv">(11) — Lắng nghe mỗi ngày</p>
@@ -1138,7 +1157,7 @@ footer { background: var(--ink9); color: #B9C6BA; padding: 0 0 96px; }
 </section>
 
 <!-- ============ 12 AREA ============ -->
-<section id="khu-vuc" class="on-dark" style="background:var(--ink9);" aria-labelledby="title-khu-vuc">
+<section id="khu-vuc" tabindex="-1" class="on-dark" style="background:var(--ink9);" aria-labelledby="title-khu-vuc">
   <div class="wrap">
     <header class="shead">
       <p class="sidx rv">(12) — Trung tâm Hai Bà Trưng</p>
@@ -1168,7 +1187,7 @@ footer { background: var(--ink9); color: #B9C6BA; padding: 0 0 96px; }
 </section>
 
 <!-- ============ 13 FAQ ============ -->
-<section id="faq" style="background:var(--paper2)" aria-labelledby="title-faq">
+<section id="faq" tabindex="-1" style="background:var(--paper2)" aria-labelledby="title-faq">
   <div class="wrap">
     <header class="shead">
       <p class="sidx rv">(13) — Hỏi nhanh đáp gọn</p>
@@ -1190,7 +1209,7 @@ footer { background: var(--ink9); color: #B9C6BA; padding: 0 0 96px; }
 </section>
 
 <!-- ============ 14 CONTACT ============ -->
-<section id="lien-he" class="on-dark" aria-labelledby="title-lien-he">
+<section id="lien-he" tabindex="-1" class="on-dark" aria-labelledby="title-lien-he">
   <div class="wrap why-grid">
     <div>
       <p class="sidx rv">(14) — Trực tiếp cho chắc</p>
@@ -1216,7 +1235,7 @@ footer { background: var(--ink9); color: #B9C6BA; padding: 0 0 96px; }
 </section>
 
 <!-- ============ 15 TERMS ============ -->
-<section id="dieu-khoan" aria-labelledby="title-dieu-khoan">
+<section id="dieu-khoan" tabindex="-1" aria-labelledby="title-dieu-khoan">
   <div class="wrap">
     <header class="shead">
       <p class="sidx rv">(15) — Minh bạch từ đầu</p>
@@ -1239,7 +1258,7 @@ footer { background: var(--ink9); color: #B9C6BA; padding: 0 0 96px; }
 </section>
 
 <!-- ============ 16 PRIVACY ============ -->
-<section id="bao-mat" class="on-dark" aria-labelledby="title-bao-mat">
+<section id="bao-mat" tabindex="-1" class="on-dark" aria-labelledby="title-bao-mat">
   <div class="wrap">
     <header class="shead">
       <p class="sidx rv">(16) — Thông tin của bạn</p>
@@ -1262,8 +1281,10 @@ footer { background: var(--ink9); color: #B9C6BA; padding: 0 0 96px; }
   <h2 id="footer-heading" class="skip">Thông tin chân trang</h2>
   <div class="ft-marq" aria-hidden="true">
     <div class="fm-track">
-      <span>Lê Thu <i>★</i> Thuê xe máy Hà Nội <i>★</i> Phố Huế · Hai Bà Trưng <i>★</i> 0354 904 601 <i>★</i>&nbsp;</span>
-      <span>Lê Thu <i>★</i> Thuê xe máy Hà Nội <i>★</i> Phố Huế · Hai Bà Trưng <i>★</i> 0354 904 601 <i>★</i>&nbsp;</span>
+      <span>Lê Thu <span aria-hidden="true">★</span> Thuê xe máy Hà Nội <span aria-hidden="true">★</span> Phố Huế · Hai Bà Trưng <span aria-hidden="true">★</span> 0354 904 601 <span aria-hidden="true">★</span>&nbsp;</span>
+      <span>Lê Thu <span aria-hidden="true">★</span> Thuê xe máy Hà Nội <span aria-hidden="true">★</span> Phố Huế · Hai Bà Trưng <span aria-hidden="true">★</span> 0354 904 601 <span aria-hidden="true">★</span>&nbsp;</span>
+      <span>Lê Thu <span aria-hidden="true">★</span> Thuê xe máy Hà Nội <span aria-hidden="true">★</span> Phố Huế · Hai Bà Trưng <span aria-hidden="true">★</span> 0354 904 601 <span aria-hidden="true">★</span>&nbsp;</span>
+      <span>Lê Thu <span aria-hidden="true">★</span> Thuê xe máy Hà Nội <span aria-hidden="true">★</span> Phố Huế · Hai Bà Trưng <span aria-hidden="true">★</span> 0354 904 601 <span aria-hidden="true">★</span>&nbsp;</span>
     </div>
   </div>
   <div class="wrap">
@@ -1286,7 +1307,6 @@ footer { background: var(--ink9); color: #B9C6BA; padding: 0 0 96px; }
         </div>
       </div>
       
-      <!-- Đảm bảo đủ 16 links chia vào 3 cột theo đúng yêu cầu -->
       <nav class="ft-links" aria-label="Khám phá">
         <h4>Khám phá (6)</h4>
         <a href="#trang-chu">Trang chủ</a>
@@ -1352,19 +1372,23 @@ footer { background: var(--ink9); color: #B9C6BA; padding: 0 0 96px; }
     }
   }, {passive:true});
 
-  // Business Hours Logic
+  // Business Hours Logic (Đã sửa lỗi phân tích ngày)
   function updStatus(){
     var open = false;
     try {
-      var vnTime = new Date(new Date().toLocaleString("en-US", {timeZone: "Asia/Ho_Chi_Minh"}));
-      var mins = vnTime.getHours() * 60 + vnTime.getMinutes();
+      // Cách an toàn hơn: Lấy UTC hour, cộng 7 (Giờ VN), modulo 24 để ra giờ VN thực tế
+      var d = new Date();
+      var vnHour = (d.getUTCHours() + 7) % 24;
+      var vnMin = d.getUTCMinutes();
+      var mins = vnHour * 60 + vnMin;
       open = mins >= 540 && mins < 1260; // 9:00 -> 21:00
     } catch(e) {
-      var d = new Date(); var mins2 = d.getHours()*60+d.getMinutes();
+      // Fallback
+      var d2 = new Date(); var mins2 = d2.getHours()*60+d2.getMinutes();
       open = mins2 >= 540 && mins2 < 1260;
     }
     document.querySelectorAll('[data-open-status]').forEach(function(el){
-      el.textContent = open ? 'Đang mở cửa · đến 21:00' : 'Đã đóng · mở cửa 9:00';
+      el.textContent = open ? 'Đang mở cửa · đến 21:00' : 'Đã đóng · mở cửa lúc 9:00';
     });
     document.querySelectorAll('[data-open-dot]').forEach(function(el){ 
       el.classList.toggle('closed', !open); 
@@ -1447,11 +1471,9 @@ footer { background: var(--ink9); color: #B9C6BA; padding: 0 0 96px; }
         if (e.isIntersecting){
           var links = navMap[e.target.id];
           if (!links) return;
-          // Xóa trạng thái active của tất cả
           document.querySelectorAll('nav.mainnav a, .mnav nav a').forEach(function(x){ 
             x.removeAttribute('aria-current'); 
           });
-          // Gắn trạng thái active cho item hiện tại
           links.forEach(function(link) {
             link.setAttribute('aria-current', 'page');
           });
@@ -1497,7 +1519,7 @@ footer { background: var(--ink9); color: #B9C6BA; padding: 0 0 96px; }
   mnav.querySelectorAll('a[href^="#"]').forEach(function(a){ a.addEventListener('click', function(){ setMenu(false); }); });
 
   window.addEventListener('resize', function(){
-    if (window.innerWidth > 1120 && document.body.classList.contains('mopen')) { setMenu(false); }
+    if (window.innerWidth > 1024 && document.body.classList.contains('mopen')) { setMenu(false); }
   });
 
   // Smooth scroll polyfill fallback & focus management
@@ -1509,13 +1531,12 @@ footer { background: var(--ink9); color: #B9C6BA; padding: 0 0 96px; }
       if (t){
         e.preventDefault();
         t.scrollIntoView({behavior: reduce ? 'auto' : 'smooth'});
-        t.focus({ preventScroll: true }); // Accessiblity focus transfer
+        t.focus({ preventScroll: true }); // Accessiblity focus transfer đã hoạt động vì có tabindex="-1"
         if (history.replaceState) history.replaceState(null, null, id);
       }
     });
   });
 })();
 </script>
-<script src="https://thuexemayhanoi.github.io/shop/motoai_v40_bm25plus_final.js" defer></script>
 </body>
 </html>
