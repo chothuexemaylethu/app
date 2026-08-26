@@ -305,7 +305,7 @@ section{padding:96px 0;position:relative; scroll-margin-top: 96px;}
 @media(max-width:1024px){.packs{grid-template-columns:1fr;max-width:600px;margin:0 auto}.pack:nth-child(2),.pack:nth-child(3){margin-top:0}.pack{--rot:0deg}}
 
 .road{position:relative;height:22px;background:var(--ink);overflow:hidden}
-.road::before{content:"absolute";left:0;right:0;top:50%;height:3px;transform:translateY(-50%);background:repeating-linear-gradient(90deg,var(--yellow) 0 26px,transparent 26px 56px)}
+.road::before{content:"";position:absolute;left:0;right:0;top:50%;height:3px;transform:translateY(-50%);background:repeating-linear-gradient(90deg,var(--yellow) 0 26px,transparent 26px 56px)}
 .road .ride{display:none}
 @media (prefers-reduced-motion:no-preference){
   .road::before{animation:dash 1.1s linear infinite}
@@ -1273,14 +1273,10 @@ footer{background:var(--ink9);color:#B9C6BA;padding:0 0 96px}
   function updStatus(){
     var open = false;
     try {
-      var f = new Intl.DateTimeFormat('en-US', {timeZone:'Asia/Ho_Chi_Minh', hour:'numeric', minute:'numeric', hour12:false});
-      var parts = f.formatToParts(new Date());
-      var h = parseInt(parts.find(function(p){return p.type==='hour'}).value, 10);
-      var mp = parts.find(function(p){return p.type==='minute'});
-      var m = mp ? parseInt(mp.value, 10) : 0;
-      if (h === 24) h = 0;
-      var mins = h*60+m;
-      open = mins >= 540 && mins < 1260;
+      // Cách xử lý thời gian ổn định và tương thích mọi trình duyệt hơn formatToParts
+      var vnTime = new Date(new Date().toLocaleString("en-US", {timeZone: "Asia/Ho_Chi_Minh"}));
+      var mins = vnTime.getHours() * 60 + vnTime.getMinutes();
+      open = mins >= 540 && mins < 1260; // 9:00 -> 21:00
     } catch(e) {
       var d = new Date(); var mins2 = d.getHours()*60+d.getMinutes();
       open = mins2 >= 540 && mins2 < 1260;
@@ -1356,7 +1352,7 @@ footer{background:var(--ink9);color:#B9C6BA;padding:0 0 96px}
           link.classList.add('act');
         }
       });
-    }, {rootMargin:'-42% 0px -52% 0px'});
+    }, {rootMargin:'-30% 0px -60% 0px'}); // Sửa threshold margin để bắt highlight nav mượt hơn ở mobile
     Object.keys(navMap).forEach(function(id){ var s = document.getElementById(id); if (s) nio.observe(s); });
   }
 
@@ -1416,4 +1412,3 @@ footer{background:var(--ink9);color:#B9C6BA;padding:0 0 96px}
 <script src="https://thuexemayhanoi.github.io/shop/motoai_v40_bm25plus_final.js" defer></script>
 </body>
 </html>
-
