@@ -1170,7 +1170,7 @@ footer { background: #0a0a0c; color: #fff; padding: 100px 0 40px; margin-top: 10
 <script>
 // 1. Initial Setup & Loader
 document.getElementById('year').textContent = new Date().getFullYear();
-window.addEventListener('load', () => {
+document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
     document.getElementById('loader').classList.add('hide');
   }, 400);
