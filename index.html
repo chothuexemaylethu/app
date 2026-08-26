@@ -204,7 +204,7 @@ nav.mainnav a{text-decoration:none;font-weight:600;font-size:.8rem;padding:6px 1
 .hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:52px;align-items:center;margin-top:26px}
 .plate-hero{display:inline-block;background:var(--yellow);color:var(--ink);border:2px solid var(--ink);box-shadow:5px 5px 0 var(--red);transform:rotate(-2deg);margin-bottom:20px}
 .plate{font-family:var(--mono);font-weight:700;background:var(--card);color:var(--ink);border:2px solid var(--ink);border-radius:8px;padding:6px 14px;letter-spacing:.08em;position:relative;box-shadow:4px 4px 0 var(--ink)}
-.plate::before,.plate::after{content:"";position:absolute;top:50%;width:5px;height:5px;border-radius:50%;background:var(--ink);transform:translateY(-50%)}
+.plate::before,.plate::after{content:"absolute";top:50%;width:5px;height:5px;border-radius:50%;background:var(--ink);transform:translateY(-50%)}
 .plate::before{left:3px}.plate::after{right:3px}
 .plate b{color:var(--red)}
 .hero h1{font-size:clamp(2.7rem,6.4vw,4.9rem);font-weight:800;text-transform:uppercase;color:var(--paper)}
@@ -1306,30 +1306,73 @@ footer{background:#0A130E;color:#B9C6BA;padding:64px 0 90px}
     });
   });
 
+  // ==========================================
+  // FIXED NAVIGATION LOGIC
+  // ==========================================
   var burger = document.getElementById('burger');
   var navLinks = document.getElementById('navLinks');
-  if (burger && navLinks){
+
+  function closeMobileMenu() {
+    if (document.body.classList.contains('nav-open')) {
+      document.body.classList.remove('nav-open');
+      if (burger) {
+        burger.setAttribute('aria-expanded', 'false');
+        burger.textContent = '☰';
+      }
+    }
+  }
+
+  if (burger) {
     burger.addEventListener('click', function(e){
       e.stopPropagation();
-      var open = document.body.classList.toggle('nav-open');
-      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-      burger.textContent = open ? '✕' : '☰';
-    });
-    navLinks.querySelectorAll('a').forEach(function(a){
-      a.addEventListener('click', function(){
-        document.body.classList.remove('nav-open');
-        burger.setAttribute('aria-expanded','false');
-        burger.textContent = '☰';
-      });
-    });
-    document.addEventListener('click', function(e){
-      if(document.body.classList.contains('nav-open') && !hd.contains(e.target)){
-        document.body.classList.remove('nav-open');
-        burger.setAttribute('aria-expanded','false');
-        burger.textContent = '☰';
+      var isOpen = document.body.classList.contains('nav-open');
+      if (isOpen) {
+        closeMobileMenu();
+      } else {
+        document.body.classList.add('nav-open');
+        burger.setAttribute('aria-expanded', 'true');
+        burger.textContent = '✕';
       }
     });
   }
+
+  // Close menu on click outside (header wrapper area)
+  document.addEventListener('click', function(e){
+    if (document.body.classList.contains('nav-open') && hd && !hd.contains(e.target)){
+      closeMobileMenu();
+    }
+  });
+
+  // Handle Resize: Fixes stuck menu if user rotates iPad or resizes window back to desktop
+  window.addEventListener('resize', function() {
+    if (window.innerWidth > 960) {
+      closeMobileMenu();
+    }
+  }, { passive: true });
+
+  // Handle all Anchor Links globally (Menu Nav, Logo, Footer links)
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
+      var targetId = this.getAttribute('href');
+      if (targetId === '#') return;
+      var targetElement = document.querySelector(targetId);
+
+      if (targetElement) {
+        e.preventDefault(); // Chặn hành vi giật cục mặc định và lỗi block do overflow:hidden
+        closeMobileMenu(); // Luôn đóng menu trước khi scroll
+
+        // Đợi 1 nhịp siêu ngắn để DOM kịp cập nhật gỡ bỏ overflow:hidden trước khi tự động tính vị trí scroll
+        setTimeout(function() {
+          targetElement.scrollIntoView({ behavior: 'smooth' }); // Gọi hàm scroll native mượt, tôn trọng CSS scroll-padding-top
+          
+          // Cập nhật URL Hash một cách im lặng mà không làm nhảy trang
+          if (history.pushState) {
+            history.pushState(null, null, targetId);
+          }
+        }, 10);
+      }
+    });
+  });
 })();
 </script>
 </body>
