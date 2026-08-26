@@ -117,6 +117,9 @@
 html{scroll-padding-top:96px}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
 body{font-family:var(--body);background:var(--paper);color:var(--ink);line-height:1.65;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+/* Prevent body scroll when mobile menu is open */
+body.nav-open { overflow: hidden; }
+
 img{max-width:100%;display:block}
 a{color:inherit}
 h1,h2,h3,.disp{font-family:var(--disp);line-height:1.08;letter-spacing:-.01em}
@@ -150,7 +153,7 @@ nav.mainnav a{text-decoration:none;font-weight:600;font-size:.9rem;padding:8px 1
 .hd-call{margin-left:6px}
 .burger{display:none;margin-left:auto;background:none;border:2px solid var(--ink);border-radius:9px;padding:8px 10px;cursor:pointer;font-size:1rem}
 @media(max-width:960px){
-  nav.mainnav{display:none;position:absolute;top:100%;left:0;right:0;background:var(--paper);border-bottom:2px solid var(--ink);flex-direction:column;align-items:stretch;padding:12px 22px;box-shadow:0 14px 20px rgba(15,27,21,.15);max-height:calc(100vh - 72px);overflow-y:auto}
+  nav.mainnav{display:none;position:absolute;top:100%;left:0;right:0;background:var(--paper);border-bottom:2px solid var(--ink);flex-direction:column;align-items:stretch;padding:12px 22px;box-shadow:0 14px 20px rgba(15,27,21,.15);max-height:calc(100vh - 72px);overflow-y:auto;z-index: 65;}
   body.nav-open nav.mainnav{display:flex}
   .burger{display:block}
   .hd-call{display:none}
@@ -252,13 +255,14 @@ section{padding:88px 0}
 
 /* ---------- nhu cau ---------- */
 .need-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:46px}
-.need{background:var(--card);border:2px solid var(--ink);border-radius:var(--r);padding:28px;box-shadow:var(--sh);position:relative;transition:transform .25s,box-shadow .25s}
+/* Fixed unequal height cards */
+.need{background:var(--card);border:2px solid var(--ink);border-radius:var(--r);padding:28px;box-shadow:var(--sh);position:relative;transition:transform .25s,box-shadow .25s; display: flex; flex-direction: column;}
 .need .no{position:absolute;top:-20px;right:18px;font-family:var(--disp);font-weight:800;font-size:3.4rem;color:transparent;-webkit-text-stroke:2px var(--red);opacity:.9}
 .need h3{font-size:1.4rem;text-transform:uppercase;margin-bottom:12px}
 .need h3 em{font-style:normal;color:var(--red)}
 .need p{font-size:.94rem;color:#3A463D}
 .need .tip{margin-top:16px;border-left:4px solid var(--yellow);background:var(--paper);border-radius:0 10px 10px 0;padding:12px 14px;font-size:.86rem;color:#4A554B}
-.need .links{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
+.need .links{margin-top:auto; padding-top: 18px; display:flex;gap:10px;flex-wrap:wrap}
 @media(max-width:960px){.need-grid{grid-template-columns:1fr}}
 
 /* ---------- road divider ---------- */
@@ -331,7 +335,8 @@ section{padding:88px 0}
 
 /* ---------- process ---------- */
 .proc{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
-.proc-left{position:sticky;top:110px}
+/* Fix sticky position requirement */
+.proc-left{position:sticky;top:110px; align-self: flex-start;}
 .proc-card{margin-top:26px;background:var(--card);border:2px solid var(--ink);border-radius:14px;box-shadow:var(--sh);padding:24px}
 .proc-card .big{font-family:var(--disp);font-weight:800;font-size:1.7rem;color:var(--red);letter-spacing:.02em}
 .proc-card p{font-size:.88rem;color:var(--mut);margin:6px 0 16px}
@@ -438,7 +443,7 @@ footer{background:#0A130E;color:#B9C6BA;padding:64px 0 90px}
       <span class="plate">29·<b>LT</b></span>
       <span><strong>LÊ THU</strong><small>thuê xe máy hà nội</small></span>
     </a>
-    <button class="burger" id="burger" aria-expanded="false" aria-label="Mở menu">☰</button>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="navLinks" aria-label="Mở menu">☰</button>
     <nav class="mainnav" id="navLinks" aria-label="Điều hướng chính">
       <a href="#nhu-cau">Gói thuê</a>
       <a href="#loai-xe">Loại xe</a>
@@ -503,6 +508,9 @@ footer{background:#0A130E;color:#B9C6BA;padding:64px 0 90px}
 <!-- ticker -->
 <div class="ticker" aria-hidden="true">
   <div class="tk-track">
+    <span>Thuê xe máy Hà Nội<i>★</i>Xe số<i>★</i>Xe ga<i>★</i>Xe điện<i>★</i>Xe 50cc<i>★</i>Theo ngày – tuần – tháng<i>★</i>Giao xe nội thành<i>★</i>0354 904 601<i>★</i></span>
+    <span>Thuê xe máy Hà Nội<i>★</i>Xe số<i>★</i>Xe ga<i>★</i>Xe điện<i>★</i>Xe 50cc<i>★</i>Theo ngày – tuần – tháng<i>★</i>Giao xe nội thành<i>★</i>0354 904 601<i>★</i></span>
+    <!-- Thêm nội dung lặp để chống hụt trên các màn hình cực rộng (Ultrawide 4k+) -->
     <span>Thuê xe máy Hà Nội<i>★</i>Xe số<i>★</i>Xe ga<i>★</i>Xe điện<i>★</i>Xe 50cc<i>★</i>Theo ngày – tuần – tháng<i>★</i>Giao xe nội thành<i>★</i>0354 904 601<i>★</i></span>
     <span>Thuê xe máy Hà Nội<i>★</i>Xe số<i>★</i>Xe ga<i>★</i>Xe điện<i>★</i>Xe 50cc<i>★</i>Theo ngày – tuần – tháng<i>★</i>Giao xe nội thành<i>★</i>0354 904 601<i>★</i></span>
   </div>
@@ -889,7 +897,8 @@ footer{background:#0A130E;color:#B9C6BA;padding:64px 0 90px}
   var burger = document.getElementById('burger');
   var navLinks = document.getElementById('navLinks');
   if (burger && navLinks){
-    burger.addEventListener('click', function(){
+    burger.addEventListener('click', function(e){
+      e.stopPropagation();
       var open = document.body.classList.toggle('nav-open');
       burger.setAttribute('aria-expanded', open ? 'true' : 'false');
       burger.textContent = open ? '✕' : '☰';
@@ -900,6 +909,15 @@ footer{background:#0A130E;color:#B9C6BA;padding:64px 0 90px}
         burger.setAttribute('aria-expanded','false');
         burger.textContent = '☰';
       });
+    });
+    
+    // Close nav when clicking outside on mobile
+    document.addEventListener('click', function(e){
+      if(document.body.classList.contains('nav-open') && !hd.contains(e.target)){
+        document.body.classList.remove('nav-open');
+        burger.setAttribute('aria-expanded','false');
+        burger.textContent = '☰';
+      }
     });
   }
 })();
