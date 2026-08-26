@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/ibm-plex-mono@5/400.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/ibm-plex-mono@5/500.css">
 
-<!-- Schema Markup (Giữ nguyên chính xác) -->
+<!-- Schema Markup -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -159,7 +159,16 @@ em { font-style: normal; color: var(--red); }
   90% { transform: translate(-2%, 2%); }
 }
 
-/* Custom Cursor (Fine pointers) */
+/* Custom Cursor (Fine pointers only - Fix double cursor) */
+body.has-custom-cursor,
+body.has-custom-cursor a,
+body.has-custom-cursor button,
+body.has-custom-cursor .duration-card,
+body.has-custom-cursor .fleet-card,
+body.has-custom-cursor .faq-trigger {
+  cursor: none !important;
+}
+
 #cursor-dot, #cursor-ring {
   position: fixed; top: 0; left: 0; pointer-events: none; z-index: 1000; border-radius: 50%; opacity: 0;
   transition: opacity 0.3s ease;
@@ -260,6 +269,7 @@ body.menu-active .burger-btn span:nth-child(2) { transform: translateY(-3.75px) 
   clip-path: circle(0% at calc(100% - 4vw) 3.5rem);
   transition: clip-path 0.8s var(--ease-in-out);
   pointer-events: none;
+  min-height: 100dvh;
 }
 body.menu-active .fullscreen-menu { clip-path: circle(150% at calc(100% - 4vw) 3.5rem); pointer-events: auto; }
 
@@ -297,13 +307,14 @@ body.menu-active .fullscreen-menu { clip-path: circle(150% at calc(100% - 4vw) 3
 }
 @keyframes fabPing { 70%, 100% { transform: scale(1.65); opacity: 0; } }
 
-/* Mobile Floating CTA Bar */
+/* Mobile Floating CTA Bar - Fix overlap with body padding */
 .mobile-bottom-bar {
   display: none; position: fixed; bottom: 0; left: 0; width: 100%; z-index: 84;
   background: rgba(19, 17, 14, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   border-top: 1px solid var(--line-dark); padding: 0.75rem 1rem;
 }
 @media (max-width: 640px) {
+  body { padding-bottom: 72px; }
   .quick-call-fab { display: none; }
   .mobile-bottom-bar { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
 }
@@ -347,7 +358,7 @@ body.menu-active .fullscreen-menu { clip-path: circle(150% at calc(100% - 4vw) 3
 
 /* --- HERO SECTION (EDITORIAL CINEMATIC) --- */
 .hero-sec {
-  position: relative; min-height: 100vh; display: flex; align-items: flex-end;
+  position: relative; min-height: 100dvh; display: flex; align-items: flex-end;
   padding-bottom: clamp(4rem, 8vw, 7rem); padding-top: 10rem;
   background-color: var(--ink); overflow: hidden;
 }
@@ -493,7 +504,10 @@ body.menu-active .fullscreen-menu { clip-path: circle(150% at calc(100% - 4vw) 3
 }
 .faq-item.open .faq-icon { transform: rotate(45deg); background: var(--red); color: var(--paper); border-color: var(--red); }
 
-.faq-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s var(--ease-out); }
+.faq-panel {
+  display: grid; grid-template-rows: 0fr; overflow: hidden;
+  transition: grid-template-rows 0.4s var(--ease-out);
+}
 .faq-item.open .faq-panel { grid-template-rows: 1fr; }
 .faq-panel-inner { overflow: hidden; }
 .faq-panel p { padding-bottom: 1.8rem; color: var(--muted); font-weight: 300; font-size: 1.02rem; line-height: 1.8; }
@@ -506,7 +520,7 @@ body.menu-active .fullscreen-menu { clip-path: circle(150% at calc(100% - 4vw) 3
 }
 @media (max-width: 960px) { .contact-hero-card { grid-template-columns: 1fr; gap: 3rem; } }
 
-/* --- FOOTER (ALL 15 MENU ITEMS PRESERVED) --- */
+/* --- FOOTER --- */
 .site-footer { background: var(--ink); color: var(--paper); border-top: 1px solid var(--line-dark); padding: 5rem 0 3rem; }
 .footer-top-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; margin-bottom: 4rem; }
 @media (max-width: 850px) { .footer-top-grid { grid-template-columns: 1fr; gap: 3rem; } }
@@ -535,7 +549,7 @@ body.menu-active .fullscreen-menu { clip-path: circle(150% at calc(100% - 4vw) 3
 
 <!-- Quick Call Floating Action Button (Desktop/Tablet) -->
 <a class="quick-call-fab" href="tel:0354904601" aria-label="Gọi ngay Thuê xe máy Lê Thu">
-  <svg viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 1.01-.63 1.01-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 1.01-.63 1.01-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
   <span class="fab-ping"></span>
 </a>
 
@@ -544,7 +558,7 @@ body.menu-active .fullscreen-menu { clip-path: circle(150% at calc(100% - 4vw) 3
   <a class="btn btn-primary" href="tel:0354904601" style="padding: 0.8rem 1rem; font-size: 0.85rem;">
     📞 Gọi 0354 904 601
   </a>
-  <a class="btn btn-secondary" href="https://zalo.me/0354904601" target="_blank" rel="noopener" style="padding: 0.8rem 1rem; font-size: 0.85rem;">
+  <a class="btn btn-secondary" href="https://zalo.me/0354904601" target="_blank" rel="noopener noreferrer" style="padding: 0.8rem 1rem; font-size: 0.85rem;">
     💬 Nhắn Zalo
   </a>
 </div>
@@ -582,7 +596,7 @@ body.menu-active .fullscreen-menu { clip-path: circle(150% at calc(100% - 4vw) 3
       <a class="phone-pill" href="tel:0354904601">
         <span>0354 904 601</span>
       </a>
-      <button class="burger-btn" id="burger-btn" aria-label="Mở menu toàn màn hình" aria-expanded="false">
+      <button class="burger-btn" id="burger-btn" aria-label="Mở menu toàn màn hình" aria-expanded="false" aria-controls="fullscreen-menu">
         <span></span>
         <span></span>
       </button>
@@ -626,7 +640,7 @@ body.menu-active .fullscreen-menu { clip-path: circle(150% at calc(100% - 4vw) 3
   <!-- ==================== SECTION 1: GIỚI THIỆU (HERO) ==================== -->
   <section class="hero-sec" id="gioi-thieu">
     <div class="hero-bg-media">
-      <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&q=80&w=1600" alt="Xe máy trên phố cổ Hà Nội">
+      <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&q=80&w=1600" alt="">
     </div>
     <div class="hero-vignette"></div>
     
@@ -646,7 +660,7 @@ body.menu-active .fullscreen-menu { clip-path: circle(150% at calc(100% - 4vw) 3
       
       <div class="fade-up" style="--delay: 450; display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2.2rem;">
         <a class="btn btn-primary" href="tel:0354904601">Gọi ngay 0354 904 601</a>
-        <a class="btn btn-secondary" href="https://zalo.me/0354904601" target="_blank" rel="noopener">Nhắn Zalo Trực Tiếp</a>
+        <a class="btn btn-secondary" href="https://zalo.me/0354904601" target="_blank" rel="noopener noreferrer">Nhắn Zalo Trực Tiếp</a>
       </div>
 
       <div class="hero-badges fade-up" style="--delay: 600;">
@@ -722,7 +736,7 @@ body.menu-active .fullscreen-menu { clip-path: circle(150% at calc(100% - 4vw) 3
         <!-- SECTION 5: XE SỐ -->
         <div class="fleet-card fade-up" id="xe-so">
           <div class="fleet-media-col">
-            <img src="https://image.qwenlm.ai/public_source/c47ae221-bc4e-4919-9517-e4e50b2e8256/123507c68-8656-4860-9dfd-11843cb0dafb.png" alt="Xe số cho thuê tại Lê Thu" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&q=80&w=800" alt="" loading="lazy">
           </div>
           <div class="fleet-info-col">
             <div class="mono" style="font-size: 0.75rem; color: var(--red); margin-bottom: 0.5rem;">CATEGORY 01</div>
@@ -743,7 +757,7 @@ body.menu-active .fullscreen-menu { clip-path: circle(150% at calc(100% - 4vw) 3
         <!-- SECTION 6: XE GA -->
         <div class="fleet-card reverse fade-up" id="xe-ga">
           <div class="fleet-media-col">
-            <img src="https://image.qwenlm.ai/public_source/c47ae221-bc4e-4919-9517-e4e50b2e8256/17b60cdad-190b-49bf-8927-8ddffbe0e128.png" alt="Xe ga cho thuê tại Hà Nội" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&q=80&w=800" alt="" loading="lazy">
           </div>
           <div class="fleet-info-col">
             <div class="mono" style="font-size: 0.75rem; color: var(--red); margin-bottom: 0.5rem;">CATEGORY 02</div>
@@ -764,7 +778,7 @@ body.menu-active .fullscreen-menu { clip-path: circle(150% at calc(100% - 4vw) 3
         <!-- SECTION 7: XE ĐIỆN -->
         <div class="fleet-card fade-up" id="xe-dien">
           <div class="fleet-media-col">
-            <img src="https://images.unsplash.com/photo-1593179357013-13ce9912c1b9?auto=format&fit=crop&q=80&w=800" alt="Xe điện cho thuê" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1593179357013-13ce9912c1b9?auto=format&fit=crop&q=80&w=800" alt="" loading="lazy">
           </div>
           <div class="fleet-info-col">
             <div class="mono" style="font-size: 0.75rem; color: var(--red); margin-bottom: 0.5rem;">CATEGORY 03</div>
@@ -785,7 +799,7 @@ body.menu-active .fullscreen-menu { clip-path: circle(150% at calc(100% - 4vw) 3
         <!-- SECTION 8: XE 50CC -->
         <div class="fleet-card reverse fade-up" id="xe-50cc">
           <div class="fleet-media-col">
-            <img src="https://image.qwenlm.ai/public_source/c47ae221-bc4e-4919-9517-e4e50b2e8256/1dfa61993-17c4-4fd0-89fd-e5c70427e856.png" alt="Xe 50cc cho thuê tại Hà Nội" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1525160354320-d8e92641c563?auto=format&fit=crop&q=80&w=800" alt="" loading="lazy">
           </div>
           <div class="fleet-info-col">
             <div class="mono" style="font-size: 0.75rem; color: var(--red); margin-bottom: 0.5rem;">CATEGORY 04</div>
@@ -827,9 +841,9 @@ body.menu-active .fullscreen-menu { clip-path: circle(150% at calc(100% - 4vw) 3
           <table class="custom-table">
             <thead>
               <tr>
-                <th>Hình thức thuê</th>
-                <th>Phù hợp với nhu cầu</th>
-                <th>Thông tin cần xác nhận trước</th>
+                <th scope="col">Hình thức thuê</th>
+                <th scope="col">Phù hợp với nhu cầu</th>
+                <th scope="col">Thông tin cần xác nhận trước</th>
               </tr>
             </thead>
             <tbody>
@@ -979,11 +993,11 @@ body.menu-active .fullscreen-menu { clip-path: circle(150% at calc(100% - 4vw) 3
         
         <div class="faq-accordion">
           <div class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">
+            <button class="faq-trigger" id="faq-trig-1" aria-expanded="false" aria-controls="faq-panel-1">
               <span>Giá thuê xe máy Hà Nội là bao nhiêu?</span>
-              <span class="faq-icon">+</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
             </button>
-            <div class="faq-panel">
+            <div class="faq-panel" id="faq-panel-1" role="region" aria-labelledby="faq-trig-1">
               <div class="faq-panel-inner">
                 <p>Giá phụ thuộc vào mẫu xe, thời gian thuê, thời điểm đặt và khu vực nhận hoặc giao xe. Gọi 0354 904 601 để hỏi mức giá theo đúng loại xe và thời gian bạn cần.</p>
               </div>
@@ -991,11 +1005,11 @@ body.menu-active .fullscreen-menu { clip-path: circle(150% at calc(100% - 4vw) 3
           </div>
 
           <div class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">
+            <button class="faq-trigger" id="faq-trig-2" aria-expanded="false" aria-controls="faq-panel-2">
               <span>Có hỗ trợ giao xe tận nơi không?</span>
-              <span class="faq-icon">+</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
             </button>
-            <div class="faq-panel">
+            <div class="faq-panel" id="faq-panel-2" role="region" aria-labelledby="faq-trig-2">
               <div class="faq-panel-inner">
                 <p>Dịch vụ có thể hỗ trợ giao xe tại một số khu vực Hà Nội tùy điều kiện. Hãy cung cấp địa chỉ cụ thể để được xác nhận khả năng giao, thời gian và phí giao nếu có.</p>
               </div>
@@ -1003,11 +1017,11 @@ body.menu-active .fullscreen-menu { clip-path: circle(150% at calc(100% - 4vw) 3
           </div>
 
           <div class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">
+            <button class="faq-trigger" id="faq-trig-3" aria-expanded="false" aria-controls="faq-panel-3">
               <span>Có thể thuê xe theo tuần hoặc theo tháng không?</span>
-              <span class="faq-icon">+</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
             </button>
-            <div class="faq-panel">
+            <div class="faq-panel" id="faq-panel-3" role="region" aria-labelledby="faq-trig-3">
               <div class="faq-panel-inner">
                 <p>Bạn có thể hỏi phương án thuê theo tuần hoặc tháng tùy mẫu xe và thời gian thuê. Nên liên hệ trước để kiểm tra xe còn sẵn và thống nhất điều kiện thuê.</p>
               </div>
@@ -1015,11 +1029,11 @@ body.menu-active .fullscreen-menu { clip-path: circle(150% at calc(100% - 4vw) 3
           </div>
 
           <div class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">
+            <button class="faq-trigger" id="faq-trig-4" aria-expanded="false" aria-controls="faq-panel-4">
               <span>Nên chọn xe số hay xe ga?</span>
-              <span class="faq-icon">+</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
             </button>
-            <div class="faq-panel">
+            <div class="faq-panel" id="faq-panel-4" role="region" aria-labelledby="faq-trig-4">
               <div class="faq-panel-inner">
                 <p>Nếu chủ yếu đi trong nội thành và ưu tiên sự tiện lợi, bạn có thể hỏi xe ga. Nếu ưu tiên tiết kiệm nhiên liệu hoặc cần di chuyển thường xuyên, xe số có thể là lựa chọn phù hợp hơn.</p>
               </div>
@@ -1027,11 +1041,11 @@ body.menu-active .fullscreen-menu { clip-path: circle(150% at calc(100% - 4vw) 3
           </div>
 
           <div class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">
+            <button class="faq-trigger" id="faq-trig-5" aria-expanded="false" aria-controls="faq-panel-5">
               <span>Có thể đặt xe trước cho ngày khác không?</span>
-              <span class="faq-icon">+</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
             </button>
-            <div class="faq-panel">
+            <div class="faq-panel" id="faq-panel-5" role="region" aria-labelledby="faq-trig-5">
               <div class="faq-panel-inner">
                 <p>Bạn nên liên hệ sớm và cung cấp ngày nhận xe, số ngày thuê, loại xe cùng địa điểm nhận. Nhân viên sẽ kiểm tra khả năng giữ xe theo nhu cầu của bạn.</p>
               </div>
@@ -1039,11 +1053,11 @@ body.menu-active .fullscreen-menu { clip-path: circle(150% at calc(100% - 4vw) 3
           </div>
 
           <div class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">
+            <button class="faq-trigger" id="faq-trig-6" aria-expanded="false" aria-controls="faq-panel-6">
               <span>Nếu xe gặp vấn đề trong thời gian thuê thì sao?</span>
-              <span class="faq-icon">+</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
             </button>
-            <div class="faq-panel">
+            <div class="faq-panel" id="faq-panel-6" role="region" aria-labelledby="faq-trig-6">
               <div class="faq-panel-inner">
                 <p>Hãy liên hệ ngay theo số điện thoại được cung cấp khi nhận xe và mô tả tình trạng cụ thể. Trước khi thuê, bạn nên hỏi rõ cách hỗ trợ và trách nhiệm của hai bên khi xe phát sinh sự cố.</p>
               </div>
@@ -1064,7 +1078,7 @@ body.menu-active .fullscreen-menu { clip-path: circle(150% at calc(100% - 4vw) 3
           <h2 class="display" style="font-size: clamp(2.2rem, 4vw, 3.5rem); margin-bottom: 1.5rem; color: var(--paper);">Vì sao nên liên hệ <br>Lê Thu <em>trực tiếp?</em></h2>
           <p style="color: var(--muted-light); font-weight: 300; margin-bottom: 1.5rem; font-size: 1.05rem;">Thông tin xe và tình trạng xe có thể thay đổi theo từng ngày. Gọi điện hoặc nhắn Zalo giúp bạn:</p>
 
-          <ul style="color: var(--paper-subtle); display: grid; gap: 0.8rem; margin-bottom: 2.5rem; font-weight: 300;">
+          <ul style="color: var(--paper-subtle); display: grid; gap: 0.8rem; margin-bottom: 2.5rem; font-weight: 300; list-style: none;">
             <li>• Biết mẫu xe mình cần còn sẵn hay không.</li>
             <li>• Nhận giá theo đúng thời gian thuê.</li>
             <li>• Hỏi rõ tiền cọc và giấy tờ.</li>
@@ -1075,7 +1089,7 @@ body.menu-active .fullscreen-menu { clip-path: circle(150% at calc(100% - 4vw) 3
 
           <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
             <a class="btn btn-primary" href="tel:0354904601">Gọi ngay 0354 904 601</a>
-            <a class="btn btn-secondary" href="https://zalo.me/0354904601" target="_blank" rel="noopener">Nhắn Zalo Trực Tiếp</a>
+            <a class="btn btn-secondary" href="https://zalo.me/0354904601" target="_blank" rel="noopener noreferrer">Nhắn Zalo Trực Tiếp</a>
           </div>
         </div>
 
@@ -1100,7 +1114,7 @@ body.menu-active .fullscreen-menu { clip-path: circle(150% at calc(100% - 4vw) 3
 
 </main>
 
-<!-- ==================== FOOTER (15 MENU ITEMS EXACTLY) ==================== -->
+<!-- ==================== FOOTER ==================== -->
 <footer class="site-footer">
   <div class="wrap">
     <div class="footer-top-grid">
@@ -1144,6 +1158,9 @@ body.menu-active .fullscreen-menu { clip-path: circle(150% at calc(100% - 4vw) 3
 (function() {
   "use strict";
 
+  /* 0. JS Class Active Indicator */
+  document.documentElement.classList.replace('no-js', 'js');
+
   /* 1. Header State Controller */
   const header = document.getElementById('site-header');
   function handleScrollHeader() {
@@ -1168,17 +1185,19 @@ body.menu-active .fullscreen-menu { clip-path: circle(150% at calc(100% - 4vw) 3
     fullscreenMenu.setAttribute('aria-hidden', isMenuOpen ? 'false' : 'true');
   }
 
-  burgerBtn.addEventListener('click', () => toggleMenu());
+  if (burgerBtn && fullscreenMenu) {
+    burgerBtn.addEventListener('click', () => toggleMenu());
 
-  document.querySelectorAll('.fullscreen-menu a, .nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      if (isMenuOpen) toggleMenu(false);
+    document.querySelectorAll('.fullscreen-menu a, .nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        if (isMenuOpen) toggleMenu(false);
+      });
     });
-  });
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && isMenuOpen) toggleMenu(false);
-  });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isMenuOpen) toggleMenu(false);
+    });
+  }
 
   /* 3. Intersection Observer Reveal Animations */
   const observerOptions = {
@@ -1199,49 +1218,63 @@ body.menu-active .fullscreen-menu { clip-path: circle(150% at calc(100% - 4vw) 3
     revealObserver.observe(el);
   });
 
-  /* 4. Active Ribbon Link Tracker & Auto-Scroll */
-  const sections = document.querySelectorAll('section[id], article[id], div[id]');
+  /* 4. Tối ưu Active Ribbon Link Tracker (Đã sửa lỗi CRITICAL-001) */
+  const sectionIds = [
+    'gioi-thieu', 'theo-ngay', 'theo-tuan', 'theo-thang',
+    'xe-so', 'xe-ga', 'xe-dien', 'xe-50cc',
+    'bang-gia', 'quy-trinh', 'dia-chi', 'giao-xe',
+    'giay-to', 'hoi-dap', 'lien-he'
+  ];
+  
+  const navElements = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
   const navLinks = document.querySelectorAll('.nav-link');
   const ribbonWrap = document.querySelector('.nav-ribbon-wrap');
+  let lastActiveId = '';
 
   function highlightNavOnScroll() {
     let currentId = '';
     const scrollPos = window.scrollY + 180;
 
-    sections.forEach(sec => {
-      const top = sec.offsetTop;
-      const height = sec.offsetHeight;
+    for (let i = 0; i < navElements.length; i++) {
+      const el = navElements[i];
+      const top = el.offsetTop;
+      const height = el.offsetHeight;
       if (scrollPos >= top && scrollPos < top + height) {
-        currentId = sec.getAttribute('id');
+        currentId = el.getAttribute('id');
       }
-    });
+    }
 
-    if (currentId) {
+    if (currentId && currentId !== lastActiveId) {
+      lastActiveId = currentId;
+
       navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === '#' + currentId) {
-          link.classList.add('active');
-          // Auto center active link in horizontal scroll ribbon
-          const linkRect = link.getBoundingClientRect();
-          const wrapRect = ribbonWrap.getBoundingClientRect();
+        const isCurrent = link.getAttribute('href') === '#' + currentId;
+        link.classList.toggle('active', isCurrent);
+
+        if (isCurrent && ribbonWrap) {
           const scrollOffset = link.offsetLeft - (ribbonWrap.offsetWidth / 2) + (link.offsetWidth / 2);
           ribbonWrap.scrollTo({ left: scrollOffset, behavior: 'smooth' });
         }
       });
     }
   }
-  window.addEventListener('scroll', highlightNavOnScroll, { passive: true });
 
-  /* 5. FAQ Accordion Logic */
+  window.addEventListener('scroll', highlightNavOnScroll, { passive: true });
+  highlightNavOnScroll();
+
+  /* 5. FAQ Accordion Logic (Chuẩn WAI-ARIA) */
   document.querySelectorAll('.faq-trigger').forEach(trigger => {
     trigger.addEventListener('click', () => {
-      const item = trigger.parentElement;
+      const item = trigger.closest('.faq-item');
+      if (!item) return;
+      
       const isOpen = item.classList.contains('open');
 
       // Close all other items
       document.querySelectorAll('.faq-item.open').forEach(openItem => {
         openItem.classList.remove('open');
-        openItem.querySelector('.faq-trigger').setAttribute('aria-expanded', 'false');
+        const openTrigger = openItem.querySelector('.faq-trigger');
+        if (openTrigger) openTrigger.setAttribute('aria-expanded', 'false');
       });
 
       if (!isOpen) {
@@ -1251,7 +1284,7 @@ body.menu-active .fullscreen-menu { clip-path: circle(150% at calc(100% - 4vw) 3
     });
   });
 
-  /* 6. Precision Custom Cursor Engine (Fine Pointer Devices Only) */
+  /* 6. Custom Cursor Engine (Đã sửa lỗi HIGH-001) */
   if (window.matchMedia('(pointer: fine)').matches) {
     document.body.classList.add('has-custom-cursor');
     const cursorDot = document.getElementById('cursor-dot');
@@ -1259,22 +1292,27 @@ body.menu-active .fullscreen-menu { clip-path: circle(150% at calc(100% - 4vw) 3
 
     let mouseX = -100, mouseY = -100;
     let ringX = -100, ringY = -100;
+    let isMoving = false;
 
     window.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+      isMoving = true;
+      if (cursorDot) {
+        cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+      }
     }, { passive: true });
 
     function renderCursorRing() {
-      ringX += (mouseX - ringX) * 0.18;
-      ringY += (mouseY - ringY) * 0.18;
-      cursorRing.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
+      if (isMoving && cursorRing) {
+        ringX += (mouseX - ringX) * 0.18;
+        ringY += (mouseY - ringY) * 0.18;
+        cursorRing.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
+      }
       requestAnimationFrame(renderCursorRing);
     }
     requestAnimationFrame(renderCursorRing);
 
-    // Hover state handles
     const hoverTargets = 'a, button, .duration-card, .fleet-card, .faq-trigger';
     document.addEventListener('mouseover', (e) => {
       if (e.target.closest(hoverTargets)) {
@@ -1286,6 +1324,11 @@ body.menu-active .fullscreen-menu { clip-path: circle(150% at calc(100% - 4vw) 3
         document.body.classList.remove('cursor-hover');
       }
     });
+
+    // Tắt custom cursor nếu phát hiện thao tác chạm touch
+    window.addEventListener('touchstart', () => {
+      document.body.classList.remove('has-custom-cursor');
+    }, { once: true, passive: true });
   }
 
 })();
