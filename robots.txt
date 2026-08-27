@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /app/
+
+Sitemap: https://chothuexemaylethu.github.io/app/sitemap.xml
